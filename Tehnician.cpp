@@ -17,10 +17,10 @@ void Tehnician::citire(istream &dev)
         cout << "Introduceti tipul si marca cu care se specializeaza (tastati 0 pentru finalizare):\n";
     while (true)
     {
-        if(isTastatura)
+        if (isTastatura)
             cout << "Tip: ";
         dev >> tip;
-        if (tip == "0")
+        if (tip == "0" || tip == "\n")
             break;
         if (isTastatura)
             cout << "Marca: ";
@@ -34,9 +34,9 @@ void Tehnician::scriere(ostream &dev) const
     Angajat::scriere(dev);
     for (const auto &pair : tip_marca)
     {
-        dev << pair.first << " " << pair.second <<" ";
+        dev << pair.first << " " << pair.second << " ";
     }
-    dev<<"\n";
+    dev << "\n";
 }
 
 void Tehnician::afisare() const

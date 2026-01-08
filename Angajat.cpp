@@ -1,6 +1,6 @@
 #include "Angajat.h"
 
-int Angajat::counter = 0;
+int Angajat::counter = 1;
 
 Angajat::Angajat(string nume, string prenume, string CNP, tm data_angajare, string oras_domiciliu) : id(counter++)
 {
@@ -75,9 +75,9 @@ void Angajat::citire(std::istream &dev)
     oras_domiciliu = oras_temp;
 }
 
-void Angajat::scriere(ostream &out) const
+void Angajat::scriere(ostream &dev) const
 {
-    out << nume << "\n"
+    dev << nume << "\n"
         << prenume << "\n"
         << CNP << "\n"
         << data_angajare.tm_mday << " " << data_angajare.tm_mon + 1 << " " << data_angajare.tm_year + 1900 << "\n"
@@ -96,6 +96,7 @@ void Angajat::afisare() const
     cout << "Data angajare: " << data_angajare.tm_mday << "/" << data_angajare.tm_mon + 1 << "/" << data_angajare.tm_year + 1900 << endl; // luna default e 0, anul default -1900
     cout << "Oras domiciliu: " << oras_domiciliu << endl;
 }
+
 double Angajat::get_salariu()
 {
     return 4000; // salariu de baza

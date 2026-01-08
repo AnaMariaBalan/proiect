@@ -8,7 +8,7 @@ using namespace std;
 
 void adauga_angajat()
 {
-    ofstream f("./tests/angajati.txt", ios::app); // se pozitioneaza la finalul fisierului
+    fstream f("./tests/angajati.txt", ios::app); // se pozitioneaza la finalul fisierului
     if (!f)
     {
         cerr << "Eroare la deschiderea fisierului!" << endl;
@@ -52,6 +52,7 @@ void adauga_angajat()
 
 vector<Angajat *> make_vector_angajati()
 {
+    cout << "vector uwu";
     // citire angajati din fisier
     fstream f("./tests/angajati.txt");
     if (!f.is_open())
@@ -331,30 +332,55 @@ void meniu()
 
 int main()
 {
+    // adauga try si catch in jurul actiunilor
     vector<Angajat *> angajati;
-    /*
+
     tm data = {};
     data.tm_year = 120; // anul 2020
     data.tm_mon = 5;    // iunie
-    data.tm_mday = 15;  // 15 iunie 2020*/
+    data.tm_mday = 15;  // 15 iunie 2020
 
     try
     {
         // angajati.push_back(new Receptioner("Popescu", "Ion", "6060207410071", data, "Bucuresti", {1, 2, 3}));
         // angajati.push_back(new Receptioner("Ionescu", "Maria", "6060207410071", data, "Bucuresti",{4,5} ));
-        /*
-        fstream f("./tests/angajati.txt");
-        if (!f.is_open())
-            throw runtime_error("Nu s-a putut deschide fisierul.");
-        */
-        meniu();
+        fstream f("./tests/angajati.txt"); // se pozitioneaza la finalul fisierului
+        if (!f)
+        {
+            cout << "Eroare la deschiderea fisierului!" << endl;
+            exit(1);
+        }
+        string rol;
+        while (getline(f, rol))
+        {
+            if (rol == "receptioner" || rol == "Receptioner")
+            {
+                Receptioner *r = new Receptioner();
+                r->citire(f);
+                angajati.push_back(r);
+            }
+            else if (rol == "tehnician" || rol == "Tehnician")
+            {
+                Tehnician *t = new Tehnician();
+                t->citire(f);
+                angajati.push_back(t);
+            }
+            else if (rol == "supervizor" || rol == "Supervizor")
+            {
+                Supervizor *s = new Supervizor();
+                s->citire(f);
+                angajati.push_back(s);
+            }
+        }
+
+        f.close();
+        // meniu();
 
         // afisare angajati
-        angajati=make_vector_angajati();
-        for (const auto &angajat : angajati)
+        for (int i = 0; i < angajati.size(); i++)
         {
-            angajat->afisare();
-            cout << "Salariu: " << angajat->get_salariu() << endl;
+            angajati[i]->afisare();
+            cout << "Salariu: " << angajati[i]->get_salariu() << endl;
             cout << "------------------------" << endl;
         }
 

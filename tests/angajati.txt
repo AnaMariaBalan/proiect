@@ -1,3 +1,11 @@
+Tehnician
+Calin
+Alexia
+6060207410071
+11 11 2025
+Ilfov
+TV Samsung TV LG 0
+
 Receptioner
 Balan
 Ana
@@ -5,10 +13,23 @@ Ana
 12 12 2025
 Bucuresti
 
-Tehnician
-Calin
-Alexia
+Supervizor
+Balan
+Maria
 6060207410071
-11 11 2025
-Ilfov
-TV Samsung TV LG 
+12 12 2024
+BUcuresti
+
+Receptioner
+Balan
+Ana-Maria
+6060207410071
+12 12 2024
+Bucuresti
+
+Supervizor
+Ana
+Balan
+6060207410071
+12 12 2024
+BUcuresti
