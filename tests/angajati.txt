@@ -1,16 +1,14 @@
-receptioner
-Popescu
-Ion
+Receptioner
+Balan
+Ana
 6060207410071
-15 6 2020
+12 12 2025
 Bucuresti
-1 2 3 
-receptioner
-Ionescu
-Maria
+
+Tehnician
+Calin
+Alexia
 6060207410071
-15 6 2020
-Bucuresti
-4 5 
-
-
+11 11 2025
+Ilfov
+TV Samsung TV LG 

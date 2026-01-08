@@ -53,31 +53,31 @@ void adauga_angajat()
 vector<Angajat *> make_vector_angajati()
 {
     // citire angajati din fisier
-    ifstream fin("./tests/angajati.txt");
-    if (!fin.is_open())
+    fstream f("./tests/angajati.txt");
+    if (!f.is_open())
         throw runtime_error("Nu s-a putut deschide fisierul.");
     vector<Angajat *> angajati;
-    while (!fin.eof())
+    while (!f.eof())
     {
         // citire rol angajat
         string rol;
-        fin >> rol;
+        f >> rol;
         if (rol == "Receptioner" || rol == "receptioner")
         {
             Angajat *a = new Receptioner();
-            fin >> *a;
+            a->citire(f);
             angajati.push_back(a);
         }
         else if (rol == "Tehnician" || rol == "tehnician")
         {
             Angajat *a = new Tehnician();
-            fin >> *a;
+            a->citire(f);
             angajati.push_back(a);
         }
         else if (rol == "Supervizor" || rol == "supervizor")
         {
             Angajat *a = new Supervizor();
-            fin >> *a;
+            a->citire(f);
             angajati.push_back(a);
         }
         else
@@ -187,7 +187,7 @@ void meniu()
                     break;
                 case 2:
                     // modificare nume angajat
-                    modificare_nume_angajat();
+                    // modificare_nume_angajat();
                     break;
                 case 3:
                     // stergere angajat
@@ -332,59 +332,25 @@ void meniu()
 int main()
 {
     vector<Angajat *> angajati;
+    /*
     tm data = {};
     data.tm_year = 120; // anul 2020
     data.tm_mon = 5;    // iunie
-    data.tm_mday = 15;  // 15 iunie 2020
+    data.tm_mday = 15;  // 15 iunie 2020*/
 
     try
     {
-        angajati.push_back(new Receptioner("Popescu", "Ion", "6060207410071", data, "Bucuresti", {1, 2, 3}));
-        angajati.push_back(new Receptioner("Ionescu", "Maria", "6060207410071", data, "Bucuresti",{4,5} ));
-
+        // angajati.push_back(new Receptioner("Popescu", "Ion", "6060207410071", data, "Bucuresti", {1, 2, 3}));
+        // angajati.push_back(new Receptioner("Ionescu", "Maria", "6060207410071", data, "Bucuresti",{4,5} ));
+        /*
         fstream f("./tests/angajati.txt");
         if (!f.is_open())
             throw runtime_error("Nu s-a putut deschide fisierul.");
-
-        for (const auto &angajat : angajati)
-        {
-
-            f<<"receptioner\n";
-            angajat->scriere(f);
-            f<<endl;
-        }
-        // citire date din fisier
-
-        while (!f.eof())
-        {
-            // citire rol angajat
-            string rol;
-            f >> rol;
-            if (rol == "Receptioner" || rol == "receptioner")
-            {
-                Angajat *a = new Receptioner();
-                f >> *a;
-                angajati.push_back(a);
-            }
-            else if (rol == "Tehnician" || rol == "tehnician")
-            {
-                Angajat *a = new Tehnician();
-                f >> *a;
-                angajati.push_back(a);
-            }
-            else if (rol == "Supervizor" || rol == "supervizor")
-            {
-                Angajat *a = new Supervizor();
-                f >> *a;
-                angajati.push_back(a);
-            }
-            else
-            {
-                cout << "Rol angajat necunoscut.\n";
-            }
-        }
+        */
+        meniu();
 
         // afisare angajati
+        angajati=make_vector_angajati();
         for (const auto &angajat : angajati)
         {
             angajat->afisare();
@@ -392,7 +358,6 @@ int main()
             cout << "------------------------" << endl;
         }
 
-        // meniu();
         //  fin.close();
     }
     catch (const exception &e)
