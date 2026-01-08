@@ -36,7 +36,7 @@ void Tehnician::scriere(ostream &dev) const
     {
         dev << pair.first << " " << pair.second << " ";
     }
-    dev << "\n";
+    dev << "0\n";
 }
 
 void Tehnician::afisare() const
