@@ -13,6 +13,12 @@ istream &operator>>(istream &dev, Receptioner &r)
     return dev;
 }
 
+
+string Receptioner::rol() const
+{
+    return "Receptioner";
+}
+
 void Receptioner::citire(istream &dev) // CEREILE SE ADUAGA PE PARCURS cu adauga_cerere
 {
     Angajat::citire(dev);

@@ -73,6 +73,14 @@ void FixItNow::meniu(string file)
                     break;
                 case 3:
                     // stergere angajat
+                    try
+                    {
+                        stergere_angajat(file);
+                    }
+                    catch (const exception &e)
+                    {
+                        cerr << "Eroare: " << e.what() << endl;
+                    }
                     break;
                 case 4:
                     // afisare date si calcul curent angajat
@@ -213,10 +221,10 @@ void FixItNow::meniu(string file)
 
 void FixItNow::modificare_nume_angajat(string location) // poate si pentru domiciliu
 {
-    string CNP=ask_for_CNP();
+    string CNP = ask_for_CNP();
 
     int poz = search_by_CNP(angajati, CNP);
-    if(poz==-1)
+    if (poz == -1)
         throw("CNP-ul nu se regaseste in lista");
 
     string name;
@@ -230,40 +238,48 @@ void FixItNow::modificare_nume_angajat(string location) // poate si pentru domic
     if (!f.is_open())
         throw runtime_error("Nu s-a putut deschide fisierul.");
 
-    for (const auto &angajat : angajati)
+    for (int i = 0; i < angajati.size(); i++)
     {
-        angajat->scriere(f);
+        f << angajati[i]->rol() << endl; // sau cu typeid(...).name() si elimin primele caractere pana dau de litera
+        angajati[i]->scriere(f);
+        if (i != angajati.size() - 1)
+            f << endl;
     }
 }
 
 void FixItNow::stergere_angajat(string location)
 {
-    string CNP=ask_for_CNP();
+    string CNP = ask_for_CNP();
 
     int poz = search_by_CNP(angajati, CNP);
-    if(poz==-1)
+    if (poz == -1)
         throw("CNP-ul nu se regaseste in lista");
-    delete [] angajati[poz];
+    cout<<"\ninainte de delete\n";
+    angajati.erase(angajati.begin() + poz);
+    cout<<"\ndupa delete\n";
 
     // update list
     ofstream f(location);
     if (!f.is_open())
         throw runtime_error("Nu s-a putut deschide fisierul.");
 
-    for (const auto &angajat : angajati)
+    for (int i = 0; i < angajati.size(); i++)
     {
-        angajat->scriere(f);
+        f << angajati[i]->rol() << endl; // sau cu typeid(...).name() si elimin primele caractere pana dau de litera
+        angajati[i]->scriere(f);
+        if (i != angajati.size() - 1)
+            f << endl;
     }
 }
 
 void FixItNow::stergere_date_angajat(string location)
 {
-    string CNP=ask_for_CNP();
+    string CNP = ask_for_CNP();
 
     int poz = search_by_CNP(angajati, CNP);
-    if(poz==-1)
+    if (poz == -1)
         throw("CNP-ul nu se regaseste in lista");
 
-    //set date anonime [noname,000000000,nonexistent]?
-    //update list
+    // set date anonime [noname,000000000,nonexistent]?
+    // update list
 }

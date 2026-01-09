@@ -33,6 +33,7 @@ public:
     // sortare dupa salariu
     void sortare_salariu(vector<Angajat *> &angajati); // pt top 3
 
+    virtual string rol() const = 0; //sau cu typeid(...).name() si elimin primele caractere pana dau de litera
     virtual void citire(istream &dev);
     virtual void scriere(ostream &dev) const;
     virtual void afisare() const;

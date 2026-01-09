@@ -18,7 +18,7 @@ Balan
 Maria
 6060207410071
 12 12 2024
-BUcuresti
+Bucuresti
 
 Receptioner
 Balan
@@ -26,13 +26,6 @@ Ana-Maria
 6060207410071
 12 12 2024
 Bucuresti
-
-Supervizor
-Ana
-Balan
-6060207410071
-12 12 2024
-BUcuresti
 
 Receptioner
 Balan

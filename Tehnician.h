@@ -13,6 +13,7 @@ public:
 
     void addBonus();
 
+    string rol() const override;
     void citire(istream &dev) override;
     void scriere(ostream &dev) const override;
     void afisare() const override;

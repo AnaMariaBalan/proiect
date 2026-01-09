@@ -8,6 +8,11 @@ istream &operator>>(istream &dev, Supervizor &s)
     return dev;
 }
 
+string Supervizor::rol() const
+{
+    return "Supervizor";
+}
+
 void Supervizor::citire(istream &dev)
 {
     Angajat::citire(dev);

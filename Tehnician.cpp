@@ -8,6 +8,11 @@ Tehnician::Tehnician(string nume, string prenume, string CNP, tm data_angajare, 
 
 //------------------------------------------------------
 
+string Tehnician::rol() const
+{
+    return "Tehnician";
+}
+
 void Tehnician::citire(istream &dev)
 {
     Angajat::citire(dev);
