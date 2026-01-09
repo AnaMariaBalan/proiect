@@ -4,13 +4,13 @@ using namespace std;
 
 int main()
 {
-    string f="./tests/angajati.txt";
-    vector<Angajat *> angajati = make_vector_angajati(f);
-    vector<Electrocasnic *> electrocasnice;
-    vector<CerereReparatie *> cereri;
-    FixItNow service(angajati, electrocasnice, cereri);
+    string f = "./tests/angajati_rai.txt";
     try
     {
+        vector<Angajat *> angajati = make_vector_angajati(f);
+        vector<Electrocasnic *> electrocasnice;
+        vector<CerereReparatie *> cereri;
+        FixItNow service(angajati, electrocasnice, cereri);
         /*
         tm data = {};
         data.tm_year = 120; // anul 2020
@@ -20,9 +20,6 @@ int main()
         // angajati.push_back(new Receptioner("Ionescu", "Maria", "6060207410071", data, "Bucuresti",{4,5} ));
 
         service.meniu(f);
-
-        
-        //  fin.close();
     }
     catch (const exception &e)
     {

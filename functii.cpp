@@ -57,23 +57,30 @@ vector<Angajat *> make_vector_angajati(string source)
     string rol;
     while (getline(f, rol))
     {
-        if (rol == "receptioner" || rol == "Receptioner")
+        try
         {
-            Receptioner *r = new Receptioner();
-            r->citire(f);
-            angajati.push_back(r);
+            if (rol == "receptioner" || rol == "Receptioner")
+            {
+                Receptioner *r = new Receptioner();
+                r->citire(f);
+                angajati.push_back(r);
+            }
+            else if (rol == "tehnician" || rol == "Tehnician")
+            {
+                Tehnician *t = new Tehnician();
+                t->citire(f);
+                angajati.push_back(t);
+            }
+            else if (rol == "supervizor" || rol == "Supervizor")
+            {
+                Supervizor *s = new Supervizor();
+                s->citire(f);
+                angajati.push_back(s);
+            }
         }
-        else if (rol == "tehnician" || rol == "Tehnician")
+        catch (const exception &e)
         {
-            Tehnician *t = new Tehnician();
-            t->citire(f);
-            angajati.push_back(t);
-        }
-        else if (rol == "supervizor" || rol == "Supervizor")
-        {
-            Supervizor *s = new Supervizor();
-            s->citire(f);
-            angajati.push_back(s);
+            cerr << "Eroare: " << e.what() << endl;
         }
     }
     f.close();
