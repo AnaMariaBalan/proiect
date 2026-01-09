@@ -235,6 +235,52 @@ void FixItNow::meniu(string file)
     }
 }
 
+void FixItNow::adauga_angajat(string location)
+{
+    fstream f(location, ios::app); // se pozitioneaza la finalul fisierului
+    if (!f)
+    {
+        cerr << "Eroare la deschiderea fisierului " << location << endl;
+        return;
+    }
+
+    char rol = 'x';
+    do
+    {
+        cout << "Rolul angajatului: (r/R receptioner, t/T tehnician, s/S supervizor)" << endl;
+        cin >> rol;
+    } while (rol != 'r' && rol != 'R' && rol != 't' && rol != 'T' && rol != 's' && rol != 'S');
+
+    if (rol == 'r' || rol == 'R')
+    {
+        // scriere angajat in fisier
+        Angajat *r=new Receptioner();
+        r->citire(cin);
+        f << "\nReceptioner\n";
+        r->scriere(f);
+        angajati.push_back(r);
+    }
+    else if (rol == 't' || rol == 'T')
+    {
+        // scriere angajat in fisier
+        Angajat *t=new Tehnician();
+        t->citire(cin);
+        f << "\nTehnician\n";
+        t->scriere(f);
+        angajati.push_back(t);
+    }
+    else if (rol == 's' || rol == 'S')
+    {
+        // scriere angajat in fisier
+        Angajat *s=new Supervizor();
+        s->citire(cin);
+        f << "\nSupervizor\n";
+        s->scriere(f);
+        angajati.push_back(s);
+    }
+    f.close();
+}
+
 void FixItNow::modificare_nume_angajat(string location) // poate si pentru domiciliu
 {
     string CNP = ask_for_CNP();

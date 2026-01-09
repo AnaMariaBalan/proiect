@@ -4,7 +4,7 @@ using namespace std;
 
 int main()
 {
-    string f = "./tests/angajati_rai.txt";
+    string f = "./tests/angajati.txt";
     try
     {
         vector<Angajat *> angajati = make_vector_angajati(f);
