@@ -24,10 +24,10 @@ public:
 
     // functii meniu
     void meniu(string file);
-    
+
     void modificare_nume_angajat(string location);
     void stergere_angajat(string location);      // delete
     void stergere_date_angajat(string location); // anonimizez
-    void afisare_date_angajati();                //+salariu
-    void afisare_lista_angajati();               // nume+prenume?
+    void afisare_date_angajat();                 //+salariu
+    void afisare_lista_angajati();               // toti!
 };

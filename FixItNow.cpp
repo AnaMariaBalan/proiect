@@ -40,7 +40,7 @@ void FixItNow::meniu(string file)
                     cout << "1. Adaugare angajat\n";
                     cout << "2. Modificare nume angajat\n";
                     cout << "3. Stergere angajat\n";
-                    cout << "4. Afisare date si calcul curent angajat\n";
+                    cout << "4. Afisare date si calcul salariu angajat curent\n";
                     cout << "5. Afisare lista angajati\n";
                     cout << "6. Back\n";
                     cout << "Optiune: ";
@@ -84,9 +84,25 @@ void FixItNow::meniu(string file)
                     break;
                 case 4:
                     // afisare date si calcul curent angajat
+                    try
+                    {
+                        afisare_date_angajat();
+                    }
+                    catch (const exception &e)
+                    {
+                        cerr << "Eroare: " << e.what() << endl;
+                    }
                     break;
                 case 5:
                     // afisare lista angajati
+                    try
+                    {
+                        afisare_lista_angajati();
+                    }
+                    catch (const exception &e)
+                    {
+                        cerr << "Eroare: " << e.what() << endl;
+                    }
                     break;
                 case 6:
                     // back
@@ -254,9 +270,8 @@ void FixItNow::stergere_angajat(string location)
     int poz = search_by_CNP(angajati, CNP);
     if (poz == -1)
         throw("CNP-ul nu se regaseste in lista");
-    cout<<"\ninainte de delete\n";
+
     angajati.erase(angajati.begin() + poz);
-    cout<<"\ndupa delete\n";
 
     // update list
     ofstream f(location);
@@ -282,4 +297,29 @@ void FixItNow::stergere_date_angajat(string location)
 
     // set date anonime [noname,000000000,nonexistent]?
     // update list
+}
+
+void FixItNow::afisare_date_angajat()
+{
+    string CNP = ask_for_CNP();
+
+    int poz = search_by_CNP(angajati, CNP);
+    if (poz == -1)
+        throw("CNP-ul nu se regaseste in lista");
+
+    cout << "------------------------" << endl;
+    angajati[poz]->afisare();
+    cout << "Salariu: " << angajati[poz]->get_salariu() << endl;
+    cout << "------------------------" << endl;
+}
+
+void FixItNow::afisare_lista_angajati()
+{
+    for (int i = 0; i < angajati.size(); i++)
+    {
+        // cout<<angajati[i]->rol()<<endl;
+        angajati[i]->afisare();
+        // cout << "Salariu: " << angajati[i]->get_salariu() << endl;
+        cout << "------------------------" << endl;
+    }
 }

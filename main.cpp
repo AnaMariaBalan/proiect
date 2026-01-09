@@ -21,15 +21,7 @@ int main()
 
         service.meniu(f);
 
-        // afisare angajati
-        /*
-        for (int i = 0; i < angajati.size(); i++)
-        {
-            angajati[i]->afisare();
-            cout << "Salariu: " << angajati[i]->get_salariu() << endl;
-            cout << "------------------------" << endl;
-        }*/
-
+        
         //  fin.close();
     }
     catch (const exception &e)
