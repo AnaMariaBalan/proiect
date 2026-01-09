@@ -2,49 +2,6 @@
 
 // meniu
 
-void adauga_angajat(string location)
-{
-    fstream f(location, ios::app); // se pozitioneaza la finalul fisierului
-    if (!f)
-    {
-        cerr << "Eroare la deschiderea fisierului " << location << endl;
-        return;
-    }
-
-    char rol = 'x';
-    do
-    {
-        cout << "Rolul angajatului: (r/R receptioner, t/T tehnician, s/S supervizor)" << endl;
-        cin >> rol;
-    } while (rol != 'r' && rol != 'R' && rol != 't' && rol != 'T' && rol != 's' && rol != 'S');
-
-    if (rol == 'r' || rol == 'R')
-    {
-        // scriere angajat in fisier
-        Receptioner r; // moare dupa
-        r.citire(cin);
-        f << "\nReceptioner\n";
-        r.scriere(f);
-    }
-    else if (rol == 't' || rol == 'T')
-    {
-        // scriere angajat in fisier
-        Tehnician t;
-        t.citire(cin);
-        f << "\nTehnician\n";
-        t.scriere(f);
-    }
-    else if (rol == 's' || rol == 'S')
-    {
-        // scriere angajat in fisier
-        Supervizor s;
-        s.citire(cin);
-        f << "\nSupervizor\n";
-        s.scriere(f);
-    }
-    f.close();
-}
-
 vector<Angajat *> make_vector_angajati(string source)
 {
     fstream f(source);
