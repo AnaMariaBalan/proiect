@@ -1,6 +1,8 @@
 #include "FixItNow.h"
 
-FixItNow::FixItNow(vector<Angajat *> angajati, vector<Electrocasnic *> electrocasnice, vector<CerereReparatie *> cereri) : angajati(angajati), electrocasnice(electrocasnice), cereri(cereri) {}
+FixItNow::FixItNow(vector<Angajat *> angajati, vector<Electrocasnic *> electrocasnice, vector<CerereReparatie *> cereri,
+                   vector<Electrocasnic *> reparate, vector<Electrocasnic *> neacceptate) : angajati(angajati), electrocasnice(electrocasnice),
+                                                                                            cereri(cereri), reparate(reparate), neacceptate(neacceptate) {}
 
 //----------------------------------------------------------------------------------
 
@@ -157,6 +159,14 @@ void FixItNow::meniu(string file_angajati, string file_electrocasnice, string fi
                     break;
                 case 3:
                     // afisare aparate reparate
+                    try
+                    {
+                        afisare_aparate_reparate();
+                    }
+                    catch (const exception &e)
+                    {
+                        cerr << "Eroare: " << e.what() << endl;
+                    }
                     break;
                 case 4:
                     // afisare aparate din afara listei
@@ -456,11 +466,11 @@ void FixItNow::stergere_electrocasnic(string location)
         {
             if (marca == electrocasnice[i]->get_info("marca"))
             {
-                if (c == 'y' || model==electrocasnice[i]->get_info("model"))
+                if (c == 'y' || model == electrocasnice[i]->get_info("model"))
                 {
-                    found =1;
+                    found = 1;
                     delete electrocasnice[i];
-                    electrocasnice.erase(electrocasnice.begin()+i);
+                    electrocasnice.erase(electrocasnice.begin() + i);
                     i--;
                 }
             }
@@ -470,13 +480,22 @@ void FixItNow::stergere_electrocasnic(string location)
         cout << "NU s-a regasit" << endl;
         return;
     }
-    cout<<"Electrocasnic eliminat!\n";
+    cout << "Electrocasnic eliminat!\n";
     ofstream f(location);
-    if(!f)
+    if (!f)
     {
-        cerr<<"Eroare la deschiderea fisierului "<<location<<endl;
+        cerr << "Eroare la deschiderea fisierului " << location << endl;
         return;
     }
     for (int i = 0; i < electrocasnice.size(); i++)
         electrocasnice[i]->scriere(f);
+}
+
+void FixItNow::afisare_aparate_reparate()
+{
+    for (int i = 0; i < reparate.size(); i++)
+    {
+        reparate[i]->afisare();
+        cout << "------------------------" << endl;
+    }
 }

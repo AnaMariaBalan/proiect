@@ -12,10 +12,17 @@ int main()
     try
     {
         vector<Angajat *> angajati = make_vector_angajati(fa);
-        vector<Electrocasnic *> electrocasnice= make_vector_electrocasnice(fe);
+        if (!is_service_operational(angajati))
+        {
+            cerr << "Service-ul nu are numarul corespunzator de angajati!\n";
+            exit(1);
+        }
+        vector<Electrocasnic *> electrocasnice = make_vector_electrocasnice(fe);
         vector<CerereReparatie *> cereri;
-        FixItNow service(angajati, electrocasnice, cereri);
-        
+        vector<Electrocasnic *> aparate_reparate; 
+        vector<Electrocasnic *> aparate_in_afara_listei;
+        FixItNow service(angajati, electrocasnice, cereri, aparate_reparate, aparate_in_afara_listei);
+
         /*tm data = {};
         data.tm_year = 120; // anul 2020
         data.tm_mon = 5;    // iunie
@@ -23,7 +30,7 @@ int main()
         // angajati.push_back(new Receptioner("Popescu", "Ion", "6060207410071", data, "Bucuresti", {1, 2, 3}));
         // angajati.push_back(new Receptioner("Ionescu", "Maria", "6060207410071", data, "Bucuresti",{4,5} ));
 
-        service.meniu(fa,fe,fc,fr);
+        service.meniu(fa, fe, fc, fr);
     }
     catch (const exception &e)
     {

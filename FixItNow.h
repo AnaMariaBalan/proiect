@@ -19,9 +19,12 @@ class FixItNow
     vector<Electrocasnic *> electrocasnice;
     vector<CerereReparatie *> cereri;
 
+    vector<Electrocasnic *> reparate; //lista?
+    vector<Electrocasnic *> neacceptate; // pereche de tip+pereche marca+model?
+
 public:
     FixItNow() = default;
-    FixItNow(vector<Angajat *> angajati, vector<Electrocasnic *> electrocasnice, vector<CerereReparatie *> cereri);
+    FixItNow(vector<Angajat *> angajati, vector<Electrocasnic *> electrocasnice, vector<CerereReparatie *> cereri, vector<Electrocasnic *> reparate, vector<Electrocasnic *> neacceptate);
     ~FixItNow() = default;
 
     // functii meniu
@@ -36,4 +39,5 @@ public:
     // electrocasnice
     void adauga_electrocasnic(string location);
     void stergere_electrocasnic(string location);
+    void afisare_aparate_reparate();
 };

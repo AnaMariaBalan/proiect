@@ -119,3 +119,18 @@ vector<int> seek_for_aparate(vector<Electrocasnic *> electrocasnice, string inte
             v.push_back(i);
     return v;
 }
+
+bool is_service_operational(vector<Angajat *> a)
+{
+    int r = 0, t = 0, s = 0;
+    for (int i = 0; i < a.size(); i++)
+        if ((a[i]->rol()) == "Receptioner")
+            r++;
+        else if ((a[i]->rol()) == "Tehnician")
+            t++;
+        else
+            s++;
+    if (r > 1 && t > 3 && s > 1)
+        return true;
+    return false;
+}
