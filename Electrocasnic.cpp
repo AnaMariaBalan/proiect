@@ -3,7 +3,7 @@
 Electrocasnic::Electrocasnic(string tip, string marca, string model, int an_fabricatie, double pret_catalog)
     : marca(marca), model(model), an_fabricatie(an_fabricatie), pret_catalog(pret_catalog)
 {
-    if (tip == "Frigider" || tip == "frigider" || tip == "tv" || tip == "TV" || tip == "masina de spalat" || tip == "Masina de spalat")
+    if (tip == "Frigider" || tip == "frigider" || tip == "tv" || tip == "TV" || tip == "masina-de-spalat" || tip == "Masina-de-spalat")
         this->tip = tip;
     else
         throw("Tip electrocasnic invalid.\n");
@@ -18,16 +18,10 @@ void Electrocasnic::afisare() const
 void Electrocasnic::citire(istream &dev)
 {
     bool isTastatura = (&dev == &std::cin);
-    string tip_temp, marca_temp, model_temp;
-    int an_temp, pret_temp;
+    string marca_temp, model_temp;
+    int an_temp;
+    double pret_temp;
 
-    if (isTastatura)
-        cout << "Tip: ";
-    dev >> tip_temp;
-    if (tip == "Frigider" || tip == "frigider" || tip == "tv" || tip == "TV" || tip == "masina de spalat" || tip == "Masina de spalat")
-        tip = tip_temp;
-    else
-        throw("Tip electrocasnic invalid.\n");
     // pt modificare usoara in caz ca sunt mai multe restrangeri ulterior
     if (isTastatura)
         cout << "Marca: ";
@@ -50,9 +44,26 @@ void Electrocasnic::citire(istream &dev)
 
 void Electrocasnic::scriere(ostream &dev) const
 {
-    dev << tip << "\n"
-        << marca << "\n"
-        << model << "\n"
-        << an_fabricatie << "\n"
-        << pret_catalog << endl;
+    dev << tip << " "
+        << marca << " "
+        << model << " "
+        << an_fabricatie << " "
+        << pret_catalog << " ";
+}
+
+void Electrocasnic::set_tip(string tip)
+{
+    if (tip == "Frigider" || tip == "frigider" || tip == "tv" || tip == "TV" || tip == "masina-de-spalat" || tip == "Masina-de-spalat")
+        this->tip = tip;
+    else
+        throw("Tip electrocasnic invalid.\n");
+}
+
+string Electrocasnic::get_info(string interest) // tip/marca/model
+{
+    if (interest == "tipul" || interest == "tip")
+        return tip;
+    else if (interest == "marca")
+        return marca;
+    return model; // default
 }

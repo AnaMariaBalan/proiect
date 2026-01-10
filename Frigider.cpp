@@ -10,7 +10,7 @@ void Frigider::citire(istream &dev)
     if (isTastatura)
         cout << "Are congelator? (y/n))\n";
     char c;
-    cin >> c;
+    dev >> c;
     if (c != 'y' && c != 'Y' && c != 'n' && c != 'N')
         throw("Raspuns invalid.\n");
     else if (c == 'y' || c == 'Y')

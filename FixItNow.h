@@ -3,7 +3,9 @@
 #include "Tehnician.h"
 #include "Supervizor.h"
 // electrocasnice
-#include "Electrocasnic.h"
+#include "TV.h"
+#include "MasinaSpalat.h"
+#include "Frigider.h"
 // cereri
 #include "CerereReparatie.h"
 //
@@ -23,13 +25,15 @@ public:
     ~FixItNow() = default;
 
     // functii meniu
-    void meniu(string file);
-    //angajati
+    void meniu(string file_angajati, string file_electrocasnice, string file_cereri, string file_raportari);
+    // angajati
     void adauga_angajat(string location);
     void modificare_nume_angajat(string location);
     void stergere_angajat(string location);      // delete
     void stergere_date_angajat(string location); // anonimizez
     void afisare_date_angajat();                 //+salariu
     void afisare_lista_angajati();               // toti!
-    //electrocasnice
+    // electrocasnice
+    void adauga_electrocasnic(string location);
+    void stergere_electrocasnic(string location);
 };

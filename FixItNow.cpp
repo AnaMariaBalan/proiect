@@ -4,7 +4,7 @@ FixItNow::FixItNow(vector<Angajat *> angajati, vector<Electrocasnic *> electroca
 
 //----------------------------------------------------------------------------------
 
-void FixItNow::meniu(string file)
+void FixItNow::meniu(string file_angajati, string file_electrocasnice, string file_cereri, string file_raportari)
 {
     while (true) // ca sa pot da back in submeniuri
     {
@@ -53,7 +53,7 @@ void FixItNow::meniu(string file)
                     // adaugare angajat
                     try
                     {
-                        adauga_angajat(file);
+                        adauga_angajat(file_angajati);
                     }
                     catch (const exception &e)
                     {
@@ -64,7 +64,7 @@ void FixItNow::meniu(string file)
                     // modificare nume angajat
                     try
                     {
-                        modificare_nume_angajat(file);
+                        modificare_nume_angajat(file_angajati);
                     }
                     catch (const exception &e)
                     {
@@ -75,7 +75,7 @@ void FixItNow::meniu(string file)
                     // stergere angajat
                     try
                     {
-                        stergere_angajat(file);
+                        stergere_angajat(file_angajati);
                     }
                     catch (const exception &e)
                     {
@@ -123,11 +123,10 @@ void FixItNow::meniu(string file)
                 {
                     cout << "\n--- Gestiune electrocasnice ---\n";
                     cout << "1. Adaugare model/marca acceptata\n";
-                    cout << "2. Modificare model/marca acceptata\n";
-                    cout << "3. Stergere model/marca acceptata\n";
-                    cout << "4. Afisare date aparate reparate\n";
-                    cout << "5. Afisare date aparate din afara listei\n";
-                    cout << "6. Back\n";
+                    cout << "2. Stergere model/marca acceptata\n";
+                    cout << "3. Afisare date aparate reparate\n";
+                    cout << "4. Afisare date aparate din afara listei\n";
+                    cout << "5. Back\n";
                     cout << "Optiune: ";
                     cin >> subchoice;
                 } while (subchoice < 1 || subchoice > 6);
@@ -136,20 +135,33 @@ void FixItNow::meniu(string file)
                 {
                 case 1:
                     // adaugare model/marca
+                    try
+                    {
+                        adauga_electrocasnic(file_electrocasnice);
+                    }
+                    catch (const exception &e)
+                    {
+                        cerr << "Eroare: " << e.what() << endl;
+                    }
                     break;
                 case 2:
-                    // modificare model/marca
+                    // stergere model/marca
+                    try
+                    {
+                        stergere_electrocasnic(file_electrocasnice);
+                    }
+                    catch (const exception &e)
+                    {
+                        cerr << "Eroare: " << e.what() << endl;
+                    }
                     break;
                 case 3:
-                    // stergere model/marca
-                    break;
-                case 4:
                     // afisare aparate reparate
                     break;
-                case 5:
+                case 4:
                     // afisare aparate din afara listei
                     break;
-                case 6:
+                case 5:
                     // back
                     back = true;
                     break;
@@ -254,7 +266,7 @@ void FixItNow::adauga_angajat(string location)
     if (rol == 'r' || rol == 'R')
     {
         // scriere angajat in fisier
-        Angajat *r=new Receptioner();
+        Angajat *r = new Receptioner();
         r->citire(cin);
         f << "\nReceptioner\n";
         r->scriere(f);
@@ -263,7 +275,7 @@ void FixItNow::adauga_angajat(string location)
     else if (rol == 't' || rol == 'T')
     {
         // scriere angajat in fisier
-        Angajat *t=new Tehnician();
+        Angajat *t = new Tehnician();
         t->citire(cin);
         f << "\nTehnician\n";
         t->scriere(f);
@@ -272,7 +284,7 @@ void FixItNow::adauga_angajat(string location)
     else if (rol == 's' || rol == 'S')
     {
         // scriere angajat in fisier
-        Angajat *s=new Supervizor();
+        Angajat *s = new Supervizor();
         s->citire(cin);
         f << "\nSupervizor\n";
         s->scriere(f);
@@ -368,4 +380,103 @@ void FixItNow::afisare_lista_angajati()
         // cout << "Salariu: " << angajati[i]->get_salariu() << endl;
         cout << "------------------------" << endl;
     }
+}
+
+void FixItNow::adauga_electrocasnic(string location)
+{
+    fstream f(location, ios::app); // se pozitioneaza la finalul fisierului
+    if (!f)
+    {
+        cerr << "Eroare la deschiderea fisierului " << location << endl;
+        return;
+    }
+
+    char tip = 'x';
+    do
+    {
+        cout << "Tipul electrocasnicului: (t/T TV, f/F Frigider, m/M Masina de spalat)" << endl;
+        cin >> tip;
+    } while (tip != 't' && tip != 'T' && tip != 'f' && tip != 'F' && tip != 'm' && tip != 'M');
+
+    if (tip == 'f' || tip == 'F')
+    {
+        // scriere angajat in fisier
+        Electrocasnic *fr = new Frigider();
+        fr->citire(cin);
+        fr->set_tip("Frigider");
+        fr->scriere(f);
+        electrocasnice.push_back(fr);
+    }
+    else if (tip == 't' || tip == 'T')
+    {
+        // scriere angajat in fisier
+        Electrocasnic *t = new TV();
+        t->citire(cin);
+        t->set_tip("TV");
+        t->scriere(f);
+        electrocasnice.push_back(t);
+    }
+    else if (tip == 'm' || tip == 'M')
+    {
+        // scriere angajat in fisier
+        Electrocasnic *ms = new MasinaSpalat();
+        ms->citire(cin);
+        ms->set_tip("Masina-de-spalat");
+        ms->scriere(f);
+        electrocasnice.push_back(ms);
+    }
+    f.close();
+}
+
+void FixItNow::stergere_electrocasnic(string location)
+{
+    cout << "Introduceti tipul electrocasnicului: (TV/Frigider/Masina-de-spalat) ";
+    string tip;
+    cin >> tip;
+    // caut primul tip bun, continui cu marca. nu convine? next!
+    cout << "Introduceti marca electrocasnicului: ";
+    string marca;
+    cin >> marca;
+    cout << "Doriti sa eliminati toate aparitiile acestei marci? (y/n) ";
+    char c = 'x';
+    do
+    {
+        cin >> c;
+    } while (c != 'y' && c != 'n');
+    string model;
+    if (c == 'n')
+    {
+        cout << "Introduceti modelul dorit: ";
+        cin >> model;
+    }
+    bool found = 0;
+
+    for (int i = 0; i < electrocasnice.size(); i++)
+        if (tip == electrocasnice[i]->get_info("tip"))
+        {
+            if (marca == electrocasnice[i]->get_info("marca"))
+            {
+                if (c == 'y' || model==electrocasnice[i]->get_info("model"))
+                {
+                    found =1;
+                    delete electrocasnice[i];
+                    electrocasnice.erase(electrocasnice.begin()+i);
+                    i--;
+                }
+            }
+        }
+    if (!found)
+    {
+        cout << "NU s-a regasit" << endl;
+        return;
+    }
+    cout<<"Electrocasnic eliminat!\n";
+    ofstream f(location);
+    if(!f)
+    {
+        cerr<<"Eroare la deschiderea fisierului "<<location<<endl;
+        return;
+    }
+    for (int i = 0; i < electrocasnice.size(); i++)
+        electrocasnice[i]->scriere(f);
 }
